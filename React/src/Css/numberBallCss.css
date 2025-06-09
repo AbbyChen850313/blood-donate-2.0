@@ -1,0 +1,126 @@
+.numberBallFrame {
+  display: flex;
+  justify-content: center;
+  flex-wrap: wrap;
+  align-items: center;
+}
+.numberBall {
+  position: relative;
+  text-align: center;
+  background-color: #2c8cf2;
+  border-radius: 10%; 
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  font-size: 4rem;
+  color: #ffffff;
+  margin: 10px;
+  width: 200px; 
+  height: 200px;
+  justify-content: center;
+  align-items: center;
+}
+.numberBallFramePC {
+  position: relative; /* 添加相對定位 */
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-around; 
+  align-items: flex-start;
+  border: 5px solid #71ec75;
+  border-radius: 5%;
+  background-color: #ffffff;
+
+  width: 80%;
+  
+}
+
+.numberBall h1 {
+  font-size: 3vw;
+  margin: 5px;
+}
+
+.numberBall p {
+  font-size: 5vw;
+  margin: 0px;
+}
+
+.numberBall button {
+  display: flex;
+  align-items: center;
+  position: absolute;
+  justify-content: center;
+}
+
+.numberBall .deleteBtn {
+  position: absolute;
+  top: -20px;
+  right: -20px;
+  float: right;
+  font-size: 3rem;
+  border-radius: 50%;
+  background-color: red;
+  width: 60px;
+  height: 60px;
+}
+
+.numberBall .editBtn {
+  top: -20px;
+  left: -30px;
+  float: right;
+  font-size: 2rem;
+  border-radius: 10%;
+  background-color: rgb(255, 157, 0);
+}
+
+.numberBall .addBtn {
+  font-size: 7rem;
+  width: 80px;
+  height: 80px;
+  bottom: -20px;
+  right: -20px;
+}
+
+
+ .numberBallPC {
+  margin: 10px;
+  margin-top: 20px;
+  position: relative;
+  text-align: center;
+  background-color: #2c8cf2;
+  border-radius: 10%;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  color: #ffffff;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  padding: 20px; 
+  width: calc(45% ); 
+  height: auto;
+}
+.numberBallPC h1 {
+  font-size: 3vw;
+  margin: 5px;
+}
+
+.numberBallPC p {
+  font-size: 5vw;
+  margin: 0px;
+}
+
+.numberBallPC::before {
+  content: '';
+  display: block;
+  padding-top: 100%; /* 創建一個正方形 */
+}
+
+ .numberBallContentPC {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  text-align: center;
+}

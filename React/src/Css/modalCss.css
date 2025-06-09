@@ -1,0 +1,60 @@
+/* Modal的基本樣式 */
+.modal {
+  position: fixed; 
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0, 0, 0, 0.674); 
+  display: flex;
+  justify-content: center;
+  align-items: center; 
+  z-index: 1000; 
+}
+
+/* Modal內容的樣式 */
+.modal-content {
+  border: 4px solid #4caf50;
+  background-color: #fff;
+  padding: 50px;
+  border-radius: 10px;
+  width: 50%;
+  max-width: 500px; 
+  position: relative;
+}
+.closeBtn {
+  position: absolute; 
+  top: 10px; 
+  right: 10px; 
+  float: right;
+  font-size: 2rem;
+  cursor: pointer;
+}
+
+.modal-content form {
+  display: flex;
+  flex-direction: column;
+}
+
+.modal-content form label {
+  margin-bottom: 10px;
+}
+
+.modal-content form input {
+  padding: 5px;
+  margin-bottom: 20px; 
+  border: 1px solid #9f9f9f;
+  border-radius: 5px;
+  font-size: 1.5rem;
+}
+.modal-content form button {
+  padding: 5px;
+  margin-bottom: -20px; 
+  border: 1px solid #9f9f9f;
+  border-radius: 5px;
+  font-size: 1.5rem;
+}
+.modal-content h2 {
+  font-size: 2rem;
+  margin-top: -20px;
+}

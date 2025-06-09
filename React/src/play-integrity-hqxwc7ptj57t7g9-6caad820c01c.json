@@ -1,0 +1,13 @@
+{
+  "type": "service_account",
+  "project_id": "play-integrity-hqxwc7ptj57t7g9",
+  "private_key_id": "6caad820c01c667e9f2132fb50a38e0cd015fcc5",
+  "private_key": "-----BEGIN PRIVATE KEY-----\nMIIEvgIBADANBgkqhkiG9w0BAQEFAASCBKgwggSkAgEAAoIBAQCcLVqE0Gn7l+GU\nAuPB0UKQyJDLyePuDPvlWwzRQcA+bGlc2dXHP6kY6QRz/zFSGRXO3ShLZzTn5gkm\nL58Q/Mqhq1mEvA199ghISRuBwrD975rUejOp8lUWrnhz1kkHBrXCcRafDpEd6ofu\nBHhTWta88AbUfPuPo3R0ZHPByusEEvRUEJ8vEbPJzTRbh+JQvCK6JF3fk5Sjx99t\nLc79Fo8dCu2bzZ28Z9ko8gnQ8fljcQgU4C1MGKnnXFk+u4m1Yv+Fd+tz+Yg7Fjo6\nYLfnjK52a5YnLXhJm4SxyDwE5oHOqbkJKYjwwad9AMKLMn+1kexbA66OUOKH8f84\nyr8GfQLtAgMBAAECggEABBig1A5Yh6uubacWJmC6Y4Xz9xLDnCkSBRKtlBV3f3IK\nrc+qCD2DgWHaZvJ0CDVPoASnIgDCEsaZSdU1t+8LBeqys96jM43bt/QKH43Y/fTZ\nW9mCqy8hPssmFJ+zrzzK6p+NtAlG302yvmVQN86qBpWWQ3kUHgQ8l/4eFro5DmFb\nj9R+u/oCcT7zw3jZECGYfj2cgwWcLa3coXmTdVp0rzBSnZ6p1CsKW35foqhgEVnJ\nCPvJlX/ksPnl0jChK37SCZzzSQVLjBE2XsP5uAmlzP4bk2byFBdWio8EzuU+cWMg\nOc36p2LrYqEsgtuIuxN3/GlRLb6RfNth1gBATimfQQKBgQDZlJrPP7nJzLmy4Fzr\n+RI7kvrtEqZnIgzlxk9d/ibEGh5WKtSW5a7/c+lX0nEdr4LpsptkEJDV3YxFIvxn\n+j4+Wu0ppCEu56GgY9fXGT8QO8QcE80oCA6JohrH8kHM6I63wCNogNm8YyrQoium\nh0bpjr1WjjQ/XMRyXigrXTbEjQKBgQC3wRrZgCinqSN/7bmW9E1WeX22tFWfwSPK\n2g5VRm/iW35G0V1uA7RKDoXaktanhyc05GcLnRmAHpNb9IpAd4topo9UXaG5rQ8s\nH24pd9K2mnYQ1qsM+lBYcT/I1AJwYqHvlmiTxos97gpwBYaTF3oFCO88EQI6FAIu\noII2fK4P4QKBgAXaZIu8uB/AnSI9vOIwMhheLNfhz44osVYhDpOFub8+wKAqyMtC\nZIHEuXs+UwKsbQYiYuG/PFY0foiBl26oobIFuimLm8TqQEPTS8Qijrq+ENl8guFX\nziRPsw676p87hlNVHN670J+rv0QbiLcTHoo758YDT06BDVvSQpxgBpAlAoGBAJFd\nRSVM+lxwNHIumMPvbgL7x1Sy4o2n1+3QhMg3GamjIYladSPj8EsppABea0tKYty3\n10DbveGZzo9PK9OF/pYCNZ7TF25wlnEcSCSr8tib5sy5VcXFe6wLox73gRpxHJQR\nk5db2KlcV4t5A5X3W4MCJ2eIOQ/C5lsGhRwfk/9hAoGBAJ/9h+UvEI6i7tUwAIQn\n5qxTpUEzOZbyY5E80YgbrOSmgG8/kkHrEySrk7LcAmYjOfh2djc7ck6W0d/TWRFg\nhdiFJkGUF+WQRNXTimjti5+x6bDywTNqKMgSmzyscZzOLbABBN7+JMNfiU3OcoCl\n94KhONTMsCfQHkv6U+S5oxx4\n-----END PRIVATE KEY-----\n",
+  "client_email": "service-blood-donate@play-integrity-hqxwc7ptj57t7g9.iam.gserviceaccount.com",
+  "client_id": "104090111691847854485",
+  "auth_uri": "https://accounts.google.com/o/oauth2/auth",
+  "token_uri": "https://oauth2.googleapis.com/token",
+  "auth_provider_x509_cert_url": "https://www.googleapis.com/oauth2/v1/certs",
+  "client_x509_cert_url": "https://www.googleapis.com/robot/v1/metadata/x509/service-blood-donate%40play-integrity-hqxwc7ptj57t7g9.iam.gserviceaccount.com",
+  "universe_domain": "googleapis.com"
+}
