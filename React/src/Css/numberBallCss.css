@@ -1,44 +1,35 @@
+/* src/Css/numberBallCss.css - 精簡版本 */
+
+/* 通用數字球框架，可能用於 Admin 頁面或手機版 */
 .numberBallFrame {
   display: flex;
   justify-content: center;
   flex-wrap: wrap;
   align-items: center;
 }
+/* 通用數字球樣式，可能用於 Admin 或手機 */
 .numberBall {
   position: relative;
   text-align: center;
   background-color: #2c8cf2;
-  border-radius: 10%; 
+  border-radius: 10%;
   box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-  font-size: 4rem;
+  font-size: 4rem; /* 保持這個，可能適用於 Admin 或手機的默認大小 */
   color: #ffffff;
   margin: 10px;
-  width: 200px; 
+  width: 200px;
   height: 200px;
   justify-content: center;
   align-items: center;
 }
-.numberBallFramePC {
-  position: relative; /* 添加相對定位 */
-  display: flex;
-  flex-wrap: wrap;
-  justify-content: space-around; 
-  align-items: flex-start;
-  border: 5px solid #71ec75;
-  border-radius: 5%;
-  background-color: #ffffff;
-
-  width: 80%;
-  
-}
 
 .numberBall h1 {
-  font-size: 3vw;
+  font-size: 3vw; /* 這個可能仍然適用於 Admin 或手機 */
   margin: 5px;
 }
 
 .numberBall p {
-  font-size: 5vw;
+  font-size: 5vw; /* 這個可能仍然適用於 Admin 或手機 */
   margin: 0px;
 }
 
@@ -78,41 +69,21 @@
   right: -20px;
 }
 
-
- .numberBallPC {
-  margin: 10px;
-  margin-top: 20px;
-  position: relative;
-  text-align: center;
+/* numberBallPC 的主要佈局和響應式樣式已移至 customerCss.css */
+.numberBallPC {
   background-color: #2c8cf2;
   border-radius: 10%;
   box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
   color: #ffffff;
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  align-items: center;
-  padding: 20px; 
-  width: calc(45% ); 
-  height: auto;
-}
-.numberBallPC h1 {
-  font-size: 3vw;
-  margin: 5px;
-}
-
-.numberBallPC p {
-  font-size: 5vw;
-  margin: 0px;
+  /* 移除其他佈局相關屬性 */
 }
 
 .numberBallPC::before {
   content: '';
   display: block;
-  padding-top: 100%; /* 創建一個正方形 */
+  padding-top: 100%;
 }
-
- .numberBallContentPC {
+.numberBallContentPC {
   position: absolute;
   top: 0;
   left: 0;
