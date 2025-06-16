@@ -1,82 +1,501 @@
-/*customerCss.css*/
+/* src/Css/customerCss.css - 修正垂直適應問題 */
+
+/* 全局 customerPage 容器 */
 .customerPage {
   width: 100%;
-  height: 100vh; /* 使其高度等於視窗的高度 */
+  height: 100vh; /* PC 端固定高度 */
   display: flex;
   flex-direction: column;
-}
-.customerPage .titlePC{
-  text-align: left;
-  font-size: 5rem;
-  color: #4e81d9;
-  margin-bottom: 20px;
-  width: 70%;
+  overflow: hidden; /* PC 端防止整體滾動 */
+  background-color: #f0f2f5;
+  min-height: unset;
+  max-height: unset;
 }
 
-.customerContainer {
+/* 標題區域容器 */
+.header-flex-container {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  width: 100%;
+  padding: 10px 20px;
+  box-sizing: border-box;
+  min-height: 80px;
+  flex-shrink: 0;
+}
+
+/* 標題文字樣式 */
+.customerPage .titlePC {
+  text-align: left;
+  font-size: clamp(2.5rem, 5vw, 5rem);
+  color: #4e81d9;
+  margin-bottom: 0;
+  flex-grow: 1;
+  line-height: 1.1;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  padding-right: 10px;
+}
+
+/* 更新按鈕 */
+.UpdateBtn {
+    background-color: #24ec4f;
+    color: #ffffff;
+    padding: 8px 15px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    font-size: 1.5rem;
+    font-weight: 800;
+    z-index: 10;
+    white-space: nowrap;
+    flex-shrink: 0;
+    margin-bottom: 10px;
+    align-self: flex-end;
+}
+.UpdateBtn:hover {
+    background-color: #1eaf40;
+}
+
+/* 主要內容區域容器 - 修正關鍵部分 */
+.main-content-flex-container {
+  display: flex;
+  flex-direction: row;
+  flex-grow: 1; /* 佔據剩餘空間 */
+  width: 100%;
+  box-sizing: border-box;
+  padding: 0 20px;
+  gap: 20px;
+  overflow: hidden;
+  min-height: 0; /* 關鍵：允許 flex 子元素縮小 */
+}
+
+/* 影片區域 - 修正響應式高度 */
+.video-area-pc {
+  flex: 7;
+  min-width: 60%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  box-sizing: border-box;
+  overflow: hidden;
+  border-radius: 8px;
+  background-color: #000;
+  min-height: 0; /* 關鍵：允許縮小 */
+  position: relative; /* 為響應式 iframe 做準備 */
+}
+
+/* YouTube 影片容器 - 新增響應式設定 */
+.youtube-video-container {
+  width: 100%;
+  height: 100%; /* 佔滿父容器 */
   position: relative;
   display: flex;
-  flex-direction: column;
   align-items: center;
-  justify-content: space-between;
-  padding: 20px;
+  justify-content: center;
 }
-.customerPage .infoText {
-  color: #ff0000;
-  font-size: 1.5rem;
+
+/* YouTube iframe - 響應式設定 */
+.youtube-iframe {
+  width: 100%;
+  height: 100%;
+  border: none;
+  border-radius: 8px;
+}
+
+/* 影片載入提示 */
+.youtube-placeholder {
+  color: white;
+  font-size: 1.2rem;
+  text-align: center;
+}
+
+/* 右側資訊區 */
+.customerPage .rightFrame {
+    flex: 3;
+    min-width: 300px;
+    background-color: #e0f7fa;
+    padding: 10px;
+    box-sizing: border-box;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: flex-start;
+    border-radius: 8px;
+    overflow-y: auto;
+    flex-grow: 1;
+    gap: 10px;
+    min-height: 0; /* 關鍵：允許縮小 */
+}
+
+/* 右側數字球容器 (PC) */
+.numberBallFramePC {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 10px;
+    width: 100%;
+    padding: 10px 0;
+    box-sizing: border-box;
+    flex-shrink: 0;
+    border: 5px solid #71ec75;
+    border-radius: 5%;
+    background-color: #ffffff;
+}
+
+/* 數字球樣式 - 響應式調整 */
+.numberBallPC {
+  margin: 10px;
+  margin-top: 0px;
+  position: relative;
+  text-align: center;
+  background-color: #2c8cf2;
+  border-radius: 10%;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  color: #ffffff;
   display: flex;
   flex-direction: column;
+  justify-content: center;
   align-items: center;
-  background: linear-gradient(to right, #c6f5d0, #b4dbff);
-  padding: 10px;
-  margin-top: 20px;
+  flex: 1 1 calc(33.33% - 20px);
+  max-width: calc(33.33% - 20px);
+  min-width: 100px;
+  height: auto;
+  aspect-ratio: 1 / 1;
+  box-sizing: border-box;
 }
+
+/* PC 版數字球內容 */
+.numberBallContentPC {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  text-align: center;
+  padding: 5%;
+  box-sizing: border-box;
+}
+
+.numberBallPC h1 {
+  font-size: clamp(1rem, 2.8vw, 3rem);
+  margin: 0;
+  word-break: break-word;
+  text-overflow: ellipsis;
+  overflow: hidden;
+  max-height: 50%;
+  line-height: 1.2;
+  flex-shrink: 0;
+}
+
+.numberBallPC p {
+  font-size: clamp(2rem, 5.5vw, 5rem);
+  margin: 0;
+  word-break: break-all;
+  flex-grow: 1;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  line-height: 1;
+  flex-shrink: 0;
+}
+
+.numberBallPC::before {
+  content: '';
+  display: block;
+  padding-top: 100%;
+}
+
+/* 通用的數字球內容容器 */
+.numberBallContent {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  text-align: center;
+  padding: 5%;
+  box-sizing: border-box;
+}
+
+/* 注意事項文字框 (PC) */
 .customerPage .infoTextPC {
   color: #ff0000;
-  font-size: 1.5rem;
+  font-size: clamp(1rem, 1.5vw, 1.5rem);
   display: flex;
   flex-direction: column;
   align-items: center;
   background: linear-gradient(to right, #c6f5d0, #b4dbff);
   padding: 10px;
-  width: 100%;
-  height: 20vh;
+  text-align: center;
+  box-sizing: border-box;
+  flex-grow: 1;
+  overflow-y: auto;
+  border-radius: 8px;
+  min-height: 0;
+  line-height: 1.4;
+}
+
+/* 手機版注意事項樣式 */
+.customerPage .infoText {
+  color: #ff0000;
+  font-size: clamp(1rem, 1.5vw, 1.5rem);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  background: linear-gradient(to right, #c6f5d0, #b4dbff);
+  padding: 10px;
   margin-top: 20px;
-}
-.customerPage .rightFrame{
-  width: 30%  ;
-  position:absolute ;
-  top: 10px;
-  right: 5px;
+  text-align: center;
+  box-sizing: border-box;
+  flex-grow: 1;
+  overflow-y: auto;
+  min-height: 0;
 }
 
+/* 跑馬燈區域容器 */
+.marquee-area {
+    width: 100%;
+    box-sizing: border-box;
+    height: 60px;
+    display: flex;
+    align-items: center;
+    flex-shrink: 0;
+    margin-top: auto;
+    padding: 0 20px;
+}
 
+/* 跑馬燈實際內容 */
 .marquee {
   overflow: hidden;
-  position: fixed;
-  bottom: 0px;
+  position: relative;
   background: linear-gradient(to right, #d4fadc, #b4dbff);
   display: flex;
   align-items: center;
   padding: 10px;
   width: 100%;
-  height: 3%;
+  height: 100%;
+  border-radius: 8px;
+  box-sizing: border-box;
 }
+
+/* 跑馬燈文字 */
 .marquee-text {
   white-space: nowrap;
-  animation: marquee 15s linear infinite;
-  font-size: 1.5rem;
-  width: 100%;
+  font-size: clamp(1rem, 1.5vw, 1.5rem);
+  padding-left: 100%;
+  will-change: transform;
+  display: inline-block;
 }
-iframe {
-  width: 100%;
-  height: 100%;
-}
+
+/* 跑馬燈關鍵幀動畫 */
 @keyframes marquee {
   from {
-    transform: translateX(100%);
+    transform: translateX(0%);
   }
   to {
-    transform: translateX(-50%);
+    transform: translateX(-100%);
   }
 }
+
+/* 通用樣式 */
+body {
+  background: linear-gradient(to right, #dae4dc, #d6ebfe);
+  font-family: "PingFang SC", "Microsoft YaHei", "Helvetica Neue", Helvetica,
+    Arial, sans-serif;
+  background-attachment: fixed;
+  height: 100%;
+  min-height: 100%;
+  margin: 0;
+  padding: 0;
+}
+
+/* 下方注意事項區塊 - 老人友善大字體設計 */
+.customerPage .infoTextPC {
+    color: #ff0000;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    background: linear-gradient(to right, #c6f5d0, #b4dbff);
+    padding: 15px;
+    text-align: center;
+    box-sizing: border-box;
+    border-radius: 8px;
+    line-height: 1.4;
+    font-weight: bold;
+    
+    /* 關鍵：佔據下方空間，根據剩餘空間調整 */
+    flex: 1 1 35%; /* 佔35%空間，可伸縮 */
+    min-height: 80px;
+    overflow-y: auto;
+    width: 100%;
+    
+    /* 老人友善：大幅增加注意事項字體大小 */
+    font-size: min(
+        clamp(1.2rem, 2.5vw, 2.5rem), /* 基於視窗寬度：最小1.2rem，最大2.5rem */
+        max(1.2rem, 3.5vh),            /* 基於視窗高度：最小1.2rem */
+        2.5rem                         /* 絕對最大限制 */
+    );
+}
+
+/* 垂直空間響應式調整 - 保持大字體 */
+@media (max-height: 700px) {
+    .customerPage .infoTextPC {
+        flex: 1 1 40%;
+        min-height: 70px;
+        font-size: min(
+            clamp(1rem, 2vw, 2rem),
+            max(1rem, 3vh),
+            2rem
+        );
+    }
+}
+
+@media (max-height: 600px) {
+    .customerPage .infoTextPC {
+        flex: 1 1 45%;
+        min-height: 60px;
+        font-size: min(
+            clamp(0.9rem, 1.8vw, 1.8rem),
+            max(0.9rem, 2.5vh),
+            1.8rem
+        );
+    }
+}
+
+@media (max-height: 500px) {
+    .customerPage .infoTextPC {
+        flex: 1 1 50%;
+        min-height: 50px;
+        font-size: min(
+            clamp(0.8rem, 1.5vw, 1.5rem),
+            max(0.8rem, 2vh),
+            1.5rem
+        );
+    }
+}
+
+/* 寬度響應式調整 - 保持大字體 */
+@media (max-width: 1200px) {
+    .customerPage .infoTextPC {
+        padding: 12px;
+        font-size: min(
+            clamp(1rem, 2vw, 2rem),
+            max(1rem, 3vh),
+            2rem
+        );
+    }
+}
+
+@media (max-width: 1024px) {
+    .customerPage .infoTextPC {
+        padding: 10px;
+        font-size: min(
+            clamp(0.9rem, 1.8vw, 1.8rem),
+            max(0.9rem, 2.5vh),
+            1.8rem
+        );
+    }
+}
+
+@media (max-width: 768px) {
+    /* 手機版：隱藏PC版注意事項 */
+    .customerPage .infoTextPC {
+        display: none;
+    }
+}
+
+  .customerContainer {
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    flex-grow: 1;
+    min-height: auto;
+  }
+
+  .numberBallFrame {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 10px;
+    width: 100%;
+    padding: 10px 0;
+    box-sizing: border-box;
+    flex-shrink: 0;
+    border: 5px solid #71ec75;
+    border-radius: 5%;
+    background-color: #ffffff;
+    min-height: 150px;
+  }
+
+  .numberBallFramePC {
+    display: none;
+  }
+
+  .numberBall {
+    flex: 1 1 90%;
+    max-width: 90%;
+    min-width: unset;
+    height: auto;
+    aspect-ratio: 1 / 1;
+    margin: 5px 0;
+    position: relative;
+    text-align: center;
+    background-color: #2c8cf2;
+    border-radius: 10%;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    color: #ffffff;
+  }
+
+  .numberBall h1 {
+    font-size: clamp(1.2rem, 4vw, 2.5rem);
+    margin: 0;
+    word-break: break-word;
+    text-overflow: ellipsis;
+    overflow: hidden;
+    max-height: 50%;
+    line-height: 1.2;
+    flex-shrink: 0;
+  }
+
+  .numberBall p {
+    font-size: clamp(2.5rem, 8vw, 4rem);
+    margin: 0;
+    word-break: break-all;
+    flex-grow: 1;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    line-height: 1;
+    flex-shrink: 0;
+  }
+
+  .numberBall::before {
+    content: '';
+    display: block;
+    padding-top: 100%;
+  }
+
+  .numberBallPC {
+    display: none;
+  }
+
+  .marquee-area {
+    height: 40px;
+    padding: 0 10px;
+    flex-shrink: 0;
+  }
+
+  .marquee-text {
+    font-size: clamp(0.8rem, 1vw, 1rem);
+  }

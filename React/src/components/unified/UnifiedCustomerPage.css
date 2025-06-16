@@ -1,0 +1,698 @@
+/* src/components/unified/UnifiedCustomerPage.css */
+/* 統一的響應式客戶頁面樣式 - Clean Code 重構版本 */
+
+/* ================ 全局設置 ================ */
+* {
+  box-sizing: border-box;
+}
+
+.customerPage {
+  width: 100%;
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  background: linear-gradient(to right, #dae4dc, #d6ebfe);
+  font-family: "Microsoft JhengHei", "PingFang SC", "Helvetica Neue", Arial, sans-serif;
+  margin: 0;
+  padding: 0;
+}
+
+/* 桌面版禁用滾動 */
+.customerPage.desktop-layout {
+  height: 100vh;
+  overflow: hidden;
+}
+
+/* 手機版允許滾動 */
+.customerPage.mobile-layout {
+  overflow-y: auto;
+}
+
+/* ================ 標題區域 ================ */
+.customer-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 10px 20px;
+  min-height: 80px;
+  flex-shrink: 0;
+  background: rgba(255, 255, 255, 0.1);
+}
+
+.customer-title {
+  font-size: clamp(2rem, 5vw, 5rem);
+  color: #4e81d9;
+  margin: 0;
+  flex-grow: 1;
+  line-height: 1.1;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  padding-right: 15px;
+}
+
+/* 桌面版按鈕 */
+.desktop-buttons {
+  display: flex;
+  gap: 10px;
+}
+
+.update-btn {
+  background-color: #24ec4f;
+  color: #ffffff;
+  padding: 12px 20px;
+  border: none;
+  border-radius: 8px;
+  cursor: pointer;
+  font-size: 1.5rem;
+  font-weight: bold;
+  white-space: nowrap;
+  flex-shrink: 0;
+  transition: all 0.3s ease;
+}
+
+.update-btn:hover {
+  background-color: #1eaf40;
+  transform: translateY(-1px);
+}
+
+.update-btn:focus {
+  outline: 2px solid #4e81d9;
+  outline-offset: 2px;
+}
+
+/* ================ 主要內容區域 ================ */
+.customer-main {
+  display: flex;
+  flex-grow: 1;
+  width: 100%;
+  padding: 0 20px;
+  gap: 20px;
+  overflow: hidden;
+  min-height: 0;
+  min-width: 0;
+}
+
+/* ================ 影片區域 ================ */
+.video-section {
+  flex: 7;
+  min-width: 300px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+  border-radius: 12px;
+  overflow: hidden;
+  min-height: 0;
+  position: relative;
+}
+
+.youtube-video-container {
+  width: 100%;
+  height: 100%;
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background-color: #000;
+  border-radius: 8px;
+}
+
+.youtube-iframe {
+  width: 100%;
+  height: 100%;
+  border: none;
+  border-radius: 8px;
+}
+
+.video-placeholder {
+  width: 100%;
+  height: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: white;
+  text-align: center;
+  background: rgba(0, 0, 0, 0.2);
+  border-radius: 8px;
+}
+
+.placeholder-content {
+  font-size: clamp(1rem, 2vw, 2rem);
+  line-height: 1.4;
+}
+
+/* ================ 資訊區域 ================ */
+.info-section {
+  flex: 3;
+  min-width: 300px;
+  background-color: #e0f7fa;
+  padding: 15px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: flex-start;
+  border-radius: 12px;
+  gap: 15px;
+  min-height: 0;
+  overflow: hidden;
+}
+
+.info-section .number-ball-container {
+  flex: 1 1 70%;
+}
+
+.info-section .info-text-container {
+  flex: 1 1 30%;
+}
+
+/* ================ 數字球容器 ================ */
+.number-ball-container {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  align-items: stretch;
+  gap: 8px;
+  width: 100%;
+  padding: 15px;
+  background-color: #ffffff;
+  border: 5px solid #71ec75;
+  border-radius: 12px;
+  flex: 1 1 65%;
+  min-height: 150px;
+  overflow: hidden;
+  transition: all 0.3s ease;
+  min-width: 0;
+  max-width: 100%;
+  container-type: size;
+}
+
+/* ================ 數字球樣式 ================ */
+.number-ball {
+  position: relative;
+  background-color: #2c8cf2;
+  border-radius: 15px;
+  box-shadow: 0 6px 12px rgba(0, 0, 0, 0.15);
+  color: #ffffff;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
+  flex: 1 1 auto;
+  min-width: 80px;
+  aspect-ratio: 1 / 1;
+  min-height: 80px;
+  max-height: 200px;
+  cursor: default;
+}
+
+.number-ball:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2);
+}
+
+.number-ball[role="button"] {
+  cursor: pointer;
+}
+
+.number-ball[role="button"]:focus {
+  outline: 2px solid #ffffff;
+  outline-offset: 2px;
+}
+
+.number-ball-content {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  text-align: center;
+  padding: 8%;
+}
+
+.number-ball-title {
+  margin: 0;
+  word-break: break-word;
+  text-overflow: ellipsis;
+  overflow: hidden;
+  line-height: 1.2;
+  flex-shrink: 1;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  max-height: 40%;
+  font-weight: bold;
+  font-size: min(
+    max(1.2rem, 2.5cqw),
+    max(1.2rem, 3.5cqh),
+    3.5rem
+  );
+}
+
+.number-ball-number {
+  margin: 0;
+  word-break: break-all;
+  flex-grow: 1;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  line-height: 0.9;
+  flex-shrink: 1;
+  max-height: 60%;
+  overflow: hidden;
+  text-align: center;
+  font-weight: bold;
+  font-size: min(
+    max(2.5rem, 5cqw),
+    max(2.5rem, 6cqh),
+    6rem
+  );
+}
+
+/* ================ 數字球智能佈局 ================ */
+/* 1個數字球：完全填滿綠框 */
+.number-ball-container[data-count="1"] {
+  gap: 0;
+  padding: 0;
+}
+
+.number-ball-container[data-count="1"] .number-ball {
+  flex: 1 1 100%;
+  max-width: 100%;
+  margin: 0;
+  min-height: 100%;
+  max-height: none;
+  border-radius: 0;
+}
+
+.number-ball-container[data-count="1"] .number-ball-title {
+  font-size: min(
+    max(2rem, 4cqw),
+    max(2rem, 5cqh),
+    5rem
+  );
+}
+
+.number-ball-container[data-count="1"] .number-ball-number {
+  font-size: min(
+    max(4rem, 8cqw),
+    max(4rem, 10cqh),
+    8rem
+  );
+}
+
+/* 2個數字球：左右分割填滿 */
+.number-ball-container[data-count="2"] {
+  gap: 0;
+  padding: 0;
+}
+
+.number-ball-container[data-count="2"] .number-ball {
+  flex: 1 1 50%;
+  max-width: 50%;
+  margin: 0;
+  min-height: 100%;
+  max-height: none;
+  border-radius: 0;
+}
+
+.number-ball-container[data-count="2"] .number-ball-title {
+  font-size: min(
+    max(1.8rem, 3.5cqw),
+    max(1.8rem, 4.5cqh),
+    4.5rem
+  );
+}
+
+.number-ball-container[data-count="2"] .number-ball-number {
+  font-size: min(
+    max(3.5rem, 7cqw),
+    max(3.5rem, 8cqh),
+    7.5rem
+  );
+}
+
+/* 3個數字球：三等分填滿 */
+.number-ball-container[data-count="3"] {
+  gap: 0;
+  padding: 0;
+}
+
+.number-ball-container[data-count="3"] .number-ball {
+  flex: 1 1 33.33%;
+  max-width: 33.33%;
+  margin: 0;
+  min-height: 100%;
+  max-height: none;
+  border-radius: 0;
+}
+
+.number-ball-container[data-count="3"] .number-ball-title {
+  font-size: min(
+    max(1.5rem, 3cqw),
+    max(1.5rem, 4cqh),
+    4rem
+  );
+}
+
+.number-ball-container[data-count="3"] .number-ball-number {
+  font-size: min(
+    max(3rem, 6cqw),
+    max(3rem, 7cqh),
+    7rem
+  );
+}
+
+/* 4個數字球：2×2網格 */
+.number-ball-container[data-count="4"] .number-ball {
+  flex: 1 1 calc(50% - 12px);
+  max-width: calc(50% - 12px);
+  min-height: 100px;
+}
+
+/* 5-6個數字球：3列網格 */
+.number-ball-container[data-count="5"] .number-ball,
+.number-ball-container[data-count="6"] .number-ball {
+  flex: 1 1 calc(33.33% - 10px);
+  max-width: calc(33.33% - 10px);
+  min-height: 90px;
+}
+
+/* 7-8個數字球：4列網格 */
+.number-ball-container[data-count="7"] .number-ball,
+.number-ball-container[data-count="8"] .number-ball {
+  flex: 1 1 calc(25% - 8px);
+  max-width: calc(25% - 8px);
+  min-height: 80px;
+}
+
+/* 9-12個數字球：4列網格 */
+.number-ball-container[data-count="9"] .number-ball,
+.number-ball-container[data-count="10"] .number-ball,
+.number-ball-container[data-count="11"] .number-ball,
+.number-ball-container[data-count="12"] .number-ball {
+  flex: 1 1 calc(25% - 8px);
+  max-width: calc(25% - 8px);
+  min-height: 70px;
+}
+
+/* 13+個數字球：5列網格 */
+.number-ball-container[data-count^="1"]:not([data-count="1"]):not([data-count="10"]):not([data-count="11"]):not([data-count="12"]) .number-ball,
+.number-ball-container[data-count^="2"] .number-ball {
+  flex: 1 1 calc(20% - 8px);
+  max-width: calc(20% - 8px);
+  min-height: 60px;
+}
+
+/* ================ 注意事項區域 ================ */
+.info-text-container {
+  color: #ff0000;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: flex-start;
+  background: linear-gradient(to right, #c6f5d0, #b4dbff);
+  padding: 15px;
+  text-align: center;
+  border-radius: 12px;
+  line-height: 1.4;
+  font-weight: bold;
+  flex: 1 1 35%;
+  min-height: 80px;
+  width: 100%;
+  font-size: clamp(1rem, 1.5vw, 1.8rem);
+  overflow-y: auto;
+  max-height: 300px;
+  white-space: pre-line;
+}
+
+/* 手機版獨立注意事項區域 */
+.mobile-info-text-container {
+  display: none;
+}
+
+/* ================ 跑馬燈區域 ================ */
+.marquee-section {
+  width: 100%;
+  height: 60px;
+  display: flex;
+  align-items: center;
+  flex-shrink: 0;
+  padding: 0 20px;
+}
+
+.marquee {
+  overflow: hidden;
+  position: relative;
+  background: linear-gradient(to right, #d4fadc, #b4dbff);
+  display: flex;
+  align-items: center;
+  padding: 15px;
+  width: 100%;
+  height: 100%;
+  border-radius: 12px;
+}
+
+.marquee-text {
+  white-space: nowrap;
+  font-size: clamp(1rem, 1.5vw, 1.8rem);
+  font-weight: 500;
+  padding-left: 100%;
+  will-change: transform;
+  display: inline-block;
+  animation: marquee 15s linear infinite;
+}
+
+@keyframes marquee {
+  from {
+    transform: translateX(0%);
+  }
+  to {
+    transform: translateX(-100%);
+  }
+}
+
+/* ================ 手機版響應式設計 ================ */
+@media (max-width: 768px) {
+  .customerPage.mobile-layout {
+    gap: 10px;
+    padding: 10px;
+    position: relative;
+    padding-bottom: 60px;
+  }
+  
+  .customerPage.mobile-layout .customer-header {
+    padding: 10px;
+    min-height: 60px;
+  }
+  
+  .customerPage.mobile-layout .customer-title {
+    font-size: clamp(1.5rem, 6vw, 3rem);
+    padding-right: 10px;
+  }
+  
+  .customerPage.mobile-layout .desktop-buttons {
+    display: none;
+  }
+  
+  .customerPage.mobile-layout .customer-main {
+    flex-direction: column;
+    padding: 0 10px;
+    gap: 15px;
+    overflow: visible;
+  }
+  
+  .customerPage.mobile-layout .video-section {
+    flex: 0 0 40vh;
+    min-width: unset;
+    order: 1;
+  }
+  
+  .customerPage.mobile-layout .mobile-info-text-container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: flex-start;
+    background: linear-gradient(to right, #c6f5d0, #b4dbff);
+    padding: 15px;
+    text-align: center;
+    border-radius: 12px;
+    line-height: 1.5;
+    font-weight: bold;
+    color: #ff0000;
+    font-size: clamp(1rem, 3vw, 1.4rem);
+    max-height: 25vh;
+    overflow-y: auto;
+    order: 2;
+    flex: 0 0 auto;
+    position: relative;
+    white-space: pre-line;
+  }
+  
+  .customerPage.mobile-layout .info-text-container {
+    display: none;
+  }
+  
+  .customerPage.mobile-layout .info-section {
+    flex: 1;
+    min-width: unset;
+    padding: 15px;
+    gap: 15px;
+    overflow: visible;
+    position: relative;
+    flex-direction: column;
+    order: 3;
+  }
+  
+  .customerPage.mobile-layout .number-ball-container {
+    padding: 15px 15px 35px 15px;
+    gap: 10px;
+    border-width: 3px;
+    overflow: hidden;
+    flex: 1 1 auto;
+    min-width: 0;
+    max-width: 100%;
+    min-height: 300px;
+  }
+  
+  .customerPage.mobile-layout .number-ball {
+    flex: 1 1 calc(50% - 8px);
+    max-width: calc(50% - 8px);
+    min-height: 90px;
+    max-height: 110px;
+    border-radius: 12px;
+    cursor: pointer;
+    transition: transform 0.2s ease;
+  }
+  
+  .customerPage.mobile-layout .number-ball:active {
+    transform: scale(0.95);
+  }
+  
+  .customerPage.mobile-layout .number-ball-title {
+    font-size: clamp(0.8rem, 3.5vw, 1.4rem);
+  }
+  
+  .customerPage.mobile-layout .number-ball-number {
+    font-size: clamp(1.8rem, 7vw, 3.2rem);
+  }
+  
+  .customerPage.mobile-layout .marquee-section {
+    position: fixed;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    height: 50px;
+    padding: 0 10px;
+    background: rgba(248, 248, 248, 0.95);
+    backdrop-filter: blur(10px);
+    z-index: 1000;
+    border-top: 1px solid #ddd;
+  }
+  
+  .customerPage.mobile-layout .marquee-text {
+    font-size: clamp(0.9rem, 2.5vw, 1.2rem);
+  }
+}
+
+/* ================ 平板版響應式設計 ================ */
+@media (min-width: 769px) and (max-width: 1024px) {
+  .customerPage.tablet-layout {
+    gap: 10px;
+    padding: 10px;
+    position: relative;
+    padding-bottom: 60px;
+  }
+  
+  .customerPage.tablet-layout .customer-main {
+    flex-direction: column;
+    gap: 10px;
+  }
+  
+  .customerPage.tablet-layout .video-section {
+    flex: 0 0 45vh;
+  }
+  
+  .customerPage.tablet-layout .info-section {
+    flex: 1;
+    flex-direction: row;
+    gap: 10px;
+    min-height: auto;
+    padding: 10px;
+  }
+  
+  .customerPage.tablet-layout .number-ball-container {
+    flex: 2;
+    min-height: 200px;
+  }
+  
+  .customerPage.tablet-layout .info-text-container {
+    flex: 1;
+    max-height: none;
+    padding: 10px;
+  }
+  
+  .customerPage.tablet-layout .marquee-section {
+    position: fixed;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    height: 50px;
+    padding: 0 10px;
+    background: rgba(248, 248, 248, 0.95);
+    backdrop-filter: blur(10px);
+    z-index: 1000;
+    border-top: 1px solid #ddd;
+  }
+  
+  .customerPage.tablet-layout .marquee-text {
+    font-size: clamp(0.9rem, 2.5vw, 1.2rem);
+  }
+}
+
+/* ================ 可訪問性增強 ================ */
+@media (prefers-reduced-motion: reduce) {
+  .marquee-text {
+    animation: none;
+    padding-left: 0;
+  }
+  
+  .number-ball {
+    transition: none;
+  }
+  
+  .update-btn {
+    transition: none;
+  }
+}
+
+/* 高對比模式支援 */
+@media (prefers-contrast: high) {
+  .number-ball {
+    border: 2px solid #ffffff;
+  }
+  
+  .customer-title {
+    text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.8);
+  }
+  
+  .info-text-container {
+    border: 2px solid #ff0000;
+  }
+}
+
+/* 大字體模式支援 */
+@media (prefers-reduced-data: reduce) {
+  .youtube-iframe {
+    display: none;
+  }
+  
+  .video-placeholder {
+    display: flex;
+  }
+}

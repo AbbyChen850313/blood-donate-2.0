@@ -1,12 +1,13 @@
+/* src/Css/publicCss.css - 精簡版本 */
 
-.title {
+.title { /* 通用標題樣式，Customer 頁面使用 .titlePC */
   font-size: 5rem;
   color: #4e81d9;
   margin-bottom: 20px;
   text-align: center;
 }
 
-.BackBtn {
+.BackBtn { /* 通用返回按鈕 */
   position: absolute;
   top: 5px;
   left: 0px;
@@ -17,41 +18,29 @@
   text-decoration: none;
   transition: background-color 0.3s ease;
   font-size: 1rem;
-  font-weight: 800; /*粗體字 一般字體粗細大概400*/
-}
-.UpdateBtn {
-  position: absolute;
-  top: 5px;
-  right: 5px;
-  background-color: #24ec4f;
-  color: #ffffff;
-  padding: 8px 8px;
-  border-radius: 5px;
-  text-decoration: none;
-  transition: background-color 0.3s ease;
-  font-size: 1.5rem;
   font-weight: 800;
 }
 
-body {
+body { /* 全局 body 樣式 */
   background: linear-gradient(to right, #dae4dc, #d6ebfe);
   font-family: "PingFang SC", "Microsoft YaHei", "Helvetica Neue", Helvetica,
-    Arial, sans-serif; 
-  background-attachment: fixed; 
+    Arial, sans-serif;
+  background-attachment: fixed;
   height: 100%;
   min-height: 100%;
   margin: 0;
   padding: 0;
+  overflow: hidden; /* 防止整個 body 滾動條出現 */
 }
-.frame {
+.frame { /* 通用框架樣式 */
   position: relative;
   border: 2px solid #4caf50;
-  border-radius: 10px; 
+  border-radius: 10px;
   padding: 25px;
   margin: 20px 0;
   width: 90%;
   background-color: white;
-  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); 
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -59,7 +48,7 @@ body {
 .frame p{
   margin-top: 5px;
 }
-.deleteButton {
+.deleteButton { /* 通用刪除按鈕 */
   font-size: 1.5rem;
   margin: 10px;
   margin-right: 0px;
@@ -67,11 +56,10 @@ body {
   width: 45px;
 }
 
-
 /*===============button====================*/
-button {
-  background-color: #4caf50; 
-  color: white; 
+button { /* 通用按鈕樣式 */
+  background-color: #4caf50;
+  color: white;
   border: none;
   border-radius: 5px;
 }
@@ -81,14 +69,14 @@ button:active {
 /*=============================================*/
 /*======================Input==================*/
 input[type="text"],
-input[type="number"] {
+input[type="number"] { /* 通用輸入框樣式 */
   flex: 1;
   margin-left: 10px;
   margin: 5px 5px 5px 10px;
   padding: 12px;
   font-size: 1.8rem;
   border: 1.5px solid #828282;
-  border-radius: 5px; 
+  border-radius: 5px;
   outline: none;
   width: 90%;
 }
@@ -100,7 +88,7 @@ input[type="number"] {
 /*=============================================*/
 
 /*=====================itemBar==================*/
-.itemBar {
+.itemBar { /* 通用 itemBar 樣式 */
   display: flex;
   flex-wrap: nowrap;
 }

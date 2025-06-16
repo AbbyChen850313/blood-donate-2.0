@@ -1,73 +1,32 @@
-import React, { useRef, useState } from "react";
-import YouTube from "react-youtube";
+// src/pages/customer/customer_youtube.tsx - 修正響應式影片
 
-const playlistId = "PLPSmbV4GJWx92kOMv4XRRekMEaZNWKC3t";
+import React from "react";
 
-function YouTubeVideo() {
-  const playerRef = useRef<any>(null);
-  const [muted, setMuted] = useState(true);
+interface YouTubeVideoProps {
+  playlistId: string;
+}
 
-  const onReady = (event: any) => {
-    playerRef.current = event.target;
-    event.target.mute();
-    event.target.playVideo();
-  };
+function YouTubeVideo({ playlistId }: YouTubeVideoProps) {
+  if (!playlistId) {
+    return <div className="youtube-placeholder">載入影片中...</div>;
+  }
 
-  const toggleMute = () => {
-    if (playerRef.current) {
-      if (muted) {
-        playerRef.current.unMute();
-      } else {
-        playerRef.current.mute();
-      }
-      setMuted(!muted);
-    }
-  };
+  // 清理 playlistId，移除不必要的參數
+  const cleanedPlaylistId = playlistId.split('&')[0];
 
-  const opts = {
-    width: "100%",
-    playerVars: {
-      listType: "playlist",
-      list: playlistId,
-      autoplay: 1,
-      loop: 1,
-      mute: 1,
-    },
-  };
+  // 使用標準的 YouTube 嵌入播放列表 URL
+  const embedSrc = `https://www.youtube.com/embed/videoseries?list=${cleanedPlaylistId}&autoplay=1&loop=1&controls=1&modestbranding=1&rel=0&enablejsapi=1`;
 
   return (
-    <div style={{ width: "100%", height: "100%", position: "relative" }}>
-      <div style={{ position: "relative", paddingTop: "56.25%" }}>
-        <YouTube
-          videoId=""
-          opts={opts}
-          onReady={onReady}
-          style={{
-            position: "absolute",
-            top: 0,
-            left: 0,
-            width: "100%",
-            height: "100%",
-          }}
-        />
-      </div>
-      <button
-        onClick={toggleMute}
-        style={{
-          position: "absolute",
-          top: 10,
-          right: 10,
-          padding: "8px 14px",
-          backgroundColor: "#4CAF50",
-          color: "white",
-          border: "none",
-          borderRadius: "6px",
-          cursor: "pointer",
-          zIndex: 10,
-        }}
-      >
-        {muted ? "🔊 點我開聲音" : "🔇 點我關閉聲音"}
-      </button>
+    <div className="youtube-video-container">
+      <iframe
+        className="youtube-iframe"
+        src={embedSrc}
+        frameBorder="0"
+        allow="autoplay; encrypted-media"
+        allowFullScreen
+        title="YouTube Video Player"
+      ></iframe>
     </div>
   );
 }

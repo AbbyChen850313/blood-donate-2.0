@@ -1,17 +1,19 @@
-// admin_number.tsx
-import React, { useState, useEffect } from "react";
-import { useNavigate } from "react-router-dom";
-import { Link } from "react-router-dom";
+// admin_numberView.tsx
+import React, { useState, useEffect, useRef, useCallback } from "react"; // 導入 useRef 和 useCallback
+import { useNavigate, Link } from "react-router-dom";
 import { updateNumberData } from "../../../components/backend/backend_writer";
 import { useNumberData } from "../../../components/backend/backend_reader";
 import { BloodNumberDataUnit } from "../../../components/backend/backend_data";
 import NumberDataInput from "./admin_numberUnit";
 import AddNumberModal from "./admin_AddNumberModal";
+
 function AdminNumber() {
-  const [refreshTrigger, setRefreshTrigger] = useState(0); 
-  const { numberData: numberData } = useNumberData(refreshTrigger);
+  const [refreshTrigger, setRefreshTrigger] = useState(0);
+  const { numberData } = useNumberData(refreshTrigger);
+
   const [numberDataValue, setNumberDataValue] =
-    useState<Array<BloodNumberDataUnit>>(numberData);
+    useState<Array<BloodNumberDataUnit>>([]);
+
   const [modalIsOpen, setModalIsOpen] = useState(false);
   const [editingItem, setEditingItem] = useState<BloodNumberDataUnit | null>(
     null
@@ -19,6 +21,11 @@ function AdminNumber() {
   const [showEditButtons, setShowEditButtons] = useState(false);
   const [showDeleteButtons, setShowDeleteButtons] = useState(false);
   const navigate = useNavigate();
+
+  // **新增：用於 debounce 的 ref**
+  const timeoutRef = useRef<NodeJS.Timeout | null>(null);
+
+  // 身份驗證
   useEffect(() => {
     const isAuthenticated = localStorage.getItem("isAdminAuthenticated");
     console.log("isAuthenticated:" + isAuthenticated);
@@ -27,9 +34,26 @@ function AdminNumber() {
     }
   }, [navigate]);
 
+  // 當 useNumberData 獲取到新數據時，更新 numberDataValue 狀態
   useEffect(() => {
     setNumberDataValue(Array.isArray(numberData) ? numberData : []);
   }, [numberData]);
+
+  // **新增：Debounced 更新 Firestore 的函數**
+  const debouncedUpdateFirestore = useCallback(async (dataToUpdate: BloodNumberDataUnit[]) => {
+      console.log("觸發 Debounced 更新 Firestore:", dataToUpdate);
+      try {
+          await updateNumberData({ numberData: dataToUpdate });
+          // 如果此時有其他外部更新，可能需要考慮是否刷新 UI
+          // 但對於 '+' 按鈕，我們假設用戶即時看到的是正確的
+          // 所以這裡不調用 setRefreshTrigger
+      } catch (error) {
+          console.error("Debounced Firestore 更新失敗:", error);
+          alert("後台更新失敗，請檢查網路或重試！"); // 提示用戶
+          // 這裡可以考慮觸發 setRefreshTrigger 來重新同步數據
+          // setRefreshTrigger(prev => prev + 1);
+      }
+  }, []); // 空依賴陣列表示這個函數只創建一次
 
   const handleEditButtonClick = (id: number) => {
     const itemToEdit = numberDataValue.find((item) => item.id === id);
@@ -39,10 +63,14 @@ function AdminNumber() {
 
   const handleAddButtonClick = () => {
     setModalIsOpen(true);
+    setEditingItem(null); // 新增時確保 editingItem 為 null
   };
 
   const handleModalClose = () => {
     setModalIsOpen(false);
+    setEditingItem(null); // 關閉模態框時重置 editingItem
+    // 模態框關閉時，觸發一次完整刷新，確保從 Firestore 獲取最新狀態
+    setRefreshTrigger(prev => prev + 1);
   };
 
   const handleEditButtonClickGlobal = () => {
@@ -55,6 +83,7 @@ function AdminNumber() {
     setShowDeleteButtons(true);
   };
 
+  // 處理保存或更新數據 (維持刷新機制，因為這不是連續操作)
   const handleSaveOrUpdateNumberData = async (item: BloodNumberDataUnit) => {
     let updatedNumberData = [...numberDataValue];
 
@@ -73,39 +102,59 @@ function AdminNumber() {
       updatedNumberData.push(item);
     }
 
-    await updateNumberData({ numberData: updatedNumberData });
-    setNumberDataValue(updatedNumberData);
-    setModalIsOpen(false);
-    setEditingItem(null);
+    try {
+      await updateNumberData({ numberData: updatedNumberData });
+      setModalIsOpen(false);
+      setEditingItem(null);
+      setRefreshTrigger(prev => prev + 1); // <-- 這裡仍然觸發刷新
+    } catch (error) {
+      console.error("Error saving/updating number data:", error);
+      alert("保存或更新失敗，請檢查網路或重試！");
+    }
   };
 
+  // 處理刪除數據 (維持刷新機制，因為這不是連續操作)
   const handleDeleteNumberData = async (id: number) => {
     const updatedNumberData = numberDataValue.filter((item) => item.id !== id);
-    await updateNumberData({ numberData: updatedNumberData });
-    setNumberDataValue(updatedNumberData);
-    handleSaveChanges(updatedNumberData);
-  };
-  const handleIncrementNumber = (index: number) => {
-    const updatedNumberData = [...numberDataValue];
-    updatedNumberData[index] = {
-      ...updatedNumberData[index],
-      number: updatedNumberData[index].number + 1,
-    };
-    setNumberDataValue(updatedNumberData);
-    setShowEditButtons(false);
-    setShowDeleteButtons(false);
-    handleSaveChanges(updatedNumberData);
+    try {
+      await updateNumberData({ numberData: updatedNumberData });
+      setRefreshTrigger(prev => prev + 1); // <-- 這裡仍然觸發刷新
+    } catch (error) {
+      console.error("Error deleting number data:", error);
+      alert("刪除失敗，請檢查網路或重試！");
+    }
   };
 
-  const handleSaveChanges = (updatedNumberData: BloodNumberDataUnit[]) => {
-    updateNumberData({
-      numberData: updatedNumberData,
-    });
+  // 處理遞增數字 (使用 Debounce)
+  const handleIncrementNumber = (index: number) => {
+    // 1. 立即在前端更新數據 (樂觀更新)
+    const updatedNumberDataForUI = [...numberDataValue];
+    if (updatedNumberDataForUI[index]) {
+        updatedNumberDataForUI[index] = {
+            ...updatedNumberDataForUI[index],
+            number: (updatedNumberDataForUI[index].number || 0) + 1,
+        };
+    }
+    setNumberDataValue(updatedNumberDataForUI); // <-- 立即更新前端顯示
+
+    setShowEditButtons(false);
+    setShowDeleteButtons(false);
+
+    // 2. 清除之前的定時器，重新設定定時器
+    if (timeoutRef.current) {
+      clearTimeout(timeoutRef.current);
+    }
+    timeoutRef.current = setTimeout(() => {
+      // 2秒後，如果沒有再次點擊，就發送更新請求
+      debouncedUpdateFirestore(updatedNumberDataForUI);
+    }, 500); // 500 毫秒 = 0.5 秒
   };
+
   const handleLogout = () => {
     localStorage.removeItem("isAdminAuthenticated");
     navigate("/");
   };
+
   return (
     <div>
       <AddNumberModal
@@ -115,9 +164,6 @@ function AdminNumber() {
         initialData={editingItem ?? undefined}
       />
       <div className="adminPage">
-        {/* <Link to="/customer" className="BackBtn">
-          切換
-        </Link>*/}
         <button className="BackBtn" onClick={handleLogout}>
           登出
         </button>
@@ -146,7 +192,6 @@ function AdminNumber() {
             showDeleteButtons={showDeleteButtons}
           />
         </div>
-
         <Link to="/admin-more" className="MoreSettingBtn">
           更多設定
         </Link>
