@@ -1,5 +1,5 @@
 // src/components/unified/Marquee.tsx
-// 統一的跑馬燈組件 - 智能輪播系統
+// 完整的快速跑馬燈組件
 
 import React, { useState, useEffect, useRef } from 'react';
 
@@ -11,40 +11,29 @@ export interface MarqueeProps {
   texts: string[];
   /** 可選的自定義類名 */
   className?: string;
-  /** 滾動速度（像素/秒），預設 80 */
+  /** 滾動速度（像素/秒），預設 150（已優化為更快速度） */
   speed?: number;
   /** 是否啟用自動輪播，預設 true */
   autoRotate?: boolean;
 }
 
 /**
- * 統一的跑馬燈組件
+ * 快速跑馬燈組件
  * 
  * 特性：
  * - 智能計算滾動時間，根據文字長度自動調整
  * - 支援多條訊息輪播
  * - 流暢的動畫效果
  * - 響應式字體大小
- * - 自動處理邊界情況
+ * - 優化的滾動速度（150 pixels/sec）
  * 
  * @param props 組件屬性
  * @returns 跑馬燈組件
- * 
- * @example
- * ```tsx
- * <Marquee 
- *   texts={[
- *     "歡迎使用血液庫存管理系統",
- *     "請定期檢查庫存狀況"
- *   ]}
- *   speed={100}
- * />
- * ```
  */
 function Marquee({ 
   texts, 
   className = '', 
-  speed = 150,
+  speed = 150, // 🚀 優化後的快速滾動速度
   autoRotate = true 
 }: MarqueeProps): JSX.Element {
   
@@ -68,11 +57,11 @@ function Marquee({
       clearTimeout(animationTimeoutRef.current);
     }
 
-    // 計算動畫持續時間
+    // 🚀 智能計算動畫持續時間
     const textActualWidth = marqueeElement.scrollWidth;
     const containerVisibleWidth = marqueeElement.parentElement?.offsetWidth || window.innerWidth;
     const totalDistance = textActualWidth + containerVisibleWidth;
-    const duration = totalDistance / speed;
+    const duration = totalDistance / speed; // 使用傳入的 speed 參數
 
     // 應用動畫
     requestAnimationFrame(() => {

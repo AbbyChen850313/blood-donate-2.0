@@ -1,5 +1,5 @@
 // src/hooks/useResponsive.ts
-// 響應式設計 Hook - 統一裝置檢測邏輯
+// 完整的響應式設計 Hook
 
 import { useState, useEffect } from 'react';
 
@@ -27,11 +27,11 @@ export interface ResponsiveState {
 }
 
 /**
- * 斷點常數定義
+ * 響應式斷點常數定義
  */
 const BREAKPOINTS = {
-  MOBILE_MAX: 768,
-  TABLET_MAX: 1024,
+  MOBILE_MAX: 768,    // 手機最大寬度
+  TABLET_MAX: 1024,   // 平板最大寬度
 } as const;
 
 /**
@@ -44,6 +44,7 @@ const BREAKPOINTS = {
  * - 監聽視窗大小變化
  * - 提供多種便利的布爾值狀態
  * - 性能優化的事件監聽
+ * - SSR 友善設計
  * 
  * @returns 響應式狀態對象
  * 
@@ -54,6 +55,8 @@ const BREAKPOINTS = {
  * if (isMobile) {
  *   return <MobileLayout />;
  * }
+ * 
+ * return <DesktopLayout />;
  * ```
  */
 export function useResponsive(): ResponsiveState {
@@ -140,6 +143,7 @@ function calculateResponsiveState(width: number, height: number): ResponsiveStat
  * @example
  * ```tsx
  * const isLargeScreen = useMediaQuery('(min-width: 1200px)');
+ * const isDarkMode = useMediaQuery('(prefers-color-scheme: dark)');
  * ```
  */
 export function useMediaQuery(query: string): boolean {
@@ -171,3 +175,29 @@ export function useMediaQuery(query: string): boolean {
 
   return matches;
 }
+
+/**
+ * 便利的響應式斷點 Hooks
+ */
+export const useIsMobile = (): boolean => {
+  const { isMobile } = useResponsive();
+  return isMobile;
+};
+
+export const useIsTablet = (): boolean => {
+  const { isTablet } = useResponsive();
+  return isTablet;
+};
+
+export const useIsDesktop = (): boolean => {
+  const { isDesktop } = useResponsive();
+  return isDesktop;
+};
+
+/**
+ * 取得當前斷點名稱
+ */
+export const useBreakpoint = (): DeviceType => {
+  const { deviceType } = useResponsive();
+  return deviceType;
+};

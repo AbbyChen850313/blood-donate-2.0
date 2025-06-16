@@ -1,5 +1,5 @@
 // src/components/unified/UnifiedCustomerPage.tsx
-// 統一的響應式客戶頁面組件 - Clean Code 重構版本
+// 完整的統一客戶頁面組件 - LOGO更新按鈕 + 良全預拌主題配色
 
 import React, { useState } from 'react';
 import { useMoreData, useNumberData } from '../backend/backend_reader';
@@ -14,9 +14,10 @@ import './UnifiedCustomerPage.css';
  * 
  * 特性：
  * - 完全響應式設計，自動適應桌面、平板、手機
+ * - 良全預拌主題配色
+ * - LOGO 更新按鈕整合
  * - 老人友善大字體設計
  * - 智能數字球佈局
- * - 統一的維護點
  * 
  * @returns 響應式客戶頁面組件
  */
@@ -27,22 +28,33 @@ function UnifiedCustomerPage(): JSX.Element {
   const { numberData = [] } = useNumberData(refreshTrigger);
 
   /**
-   * 處理更新按鈕點擊
-   * 觸發數據重新獲取並提供視覺反饋
+   * 處理 LOGO 更新按鈕點擊
+   * 觸發數據重新獲取並提供豐富的視覺反饋
    */
-  const handleUpdate = (): void => {
+  const handleLogoUpdate = (): void => {
     setRefreshTrigger(prev => prev + 1);
     
-    // 視覺反饋效果
-    const updateBtns = document.querySelectorAll('.update-btn');
-    updateBtns.forEach(btn => {
-      if (btn instanceof HTMLElement) {
-        btn.style.transform = 'scale(0.95)';
+    // LOGO 更新按鈕的視覺反饋動畫
+    const logoBtn = document.querySelector('.logo-update-btn');
+    if (logoBtn instanceof HTMLElement) {
+      // 第一階段：縮小 + 輕微旋轉
+      logoBtn.style.transform = 'scale(0.9) rotate(10deg)';
+      logoBtn.style.filter = 'brightness(1.3) drop-shadow(0 8px 25px rgba(198, 40, 40, 0.5))';
+      
+      setTimeout(() => {
+        // 第二階段：放大 + 反向旋轉
+        logoBtn.style.transform = 'scale(1.1) rotate(-5deg)';
+        
         setTimeout(() => {
-          btn.style.transform = '';
-        }, 150);
-      }
-    });
+          // 第三階段：回復正常
+          logoBtn.style.transform = 'scale(1) rotate(0deg)';
+          logoBtn.style.filter = '';
+        }, 200);
+      }, 150);
+    }
+    
+    // 可選：控制台提示
+    console.log('🔄 血液庫存數據更新中...');
   };
 
   return (
@@ -51,16 +63,27 @@ function UnifiedCustomerPage(): JSX.Element {
       <header className="customer-header">
         <h1 className="customer-title">{title}</h1>
         
-        {/* 桌面版更新按鈕 */}
+        {/* LOGO 更新按鈕（僅桌面版顯示） */}
         {!isMobile && (
-          <div className="desktop-buttons">
-            <button 
-              className="update-btn" 
-              onClick={handleUpdate}
-              aria-label="更新數據"
-            >
-              更新
-            </button>
+          <div 
+            className="logo-update-btn"
+            onClick={handleLogoUpdate}
+            title="點擊更新血液庫存數據"
+            role="button"
+            tabIndex={0}
+            onKeyDown={(e) => {
+              if (e.key === 'Enter' || e.key === ' ') {
+                e.preventDefault();
+                handleLogoUpdate();
+              }
+            }}
+          >
+            <img 
+              src="/logo/liangquan-logo.png"
+              alt="良全預拌LOGO - 點擊更新"
+              className="logo-image"
+              draggable={false}
+            />
           </div>
         )}
       </header>
