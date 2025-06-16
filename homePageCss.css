@@ -1,0 +1,23 @@
+.homePage {
+  display: flex;
+  flex-direction: column;
+  justify-content: center; 
+  align-items: center; 
+  height: 100vh;
+}
+
+.homePage .adminLink,
+.homePage .customerLink {
+  font-size: 3rem;
+  margin: 30px;
+  padding: 5px;
+  border-radius: 7%;
+  color: white;
+  text-decoration: none;
+}
+.homePage .adminLink {
+  background-color: #ceb037;
+}
+.homePage .customerLink {
+  background-color: #41dd53;
+}
