@@ -33,7 +33,7 @@ export interface MarqueeProps {
 function Marquee({ 
   texts, 
   className = '', 
-  speed = 150, // 🚀 優化後的快速滾動速度
+  speed = 50, // 🚀 優化後的快速滾動速度
   autoRotate = true 
 }: MarqueeProps): JSX.Element {
   
@@ -59,10 +59,8 @@ function Marquee({
 
     // 🚀 智能計算動畫持續時間
     const textActualWidth = marqueeElement.scrollWidth;
-    const containerVisibleWidth = marqueeElement.parentElement?.offsetWidth || window.innerWidth;
-    const totalDistance = textActualWidth + containerVisibleWidth;
-    const duration = totalDistance / speed; // 使用傳入的 speed 參數
-
+        const duration = textActualWidth / speed; // 使用文字寬度計算動畫時間
+    
     // 應用動畫
     requestAnimationFrame(() => {
       marqueeElement.style.animation = `marquee ${duration}s linear forwards`;

@@ -3,7 +3,7 @@
 /* 全局 customerPage 容器 */
 .customerPage {
   width: 100%;
-  height: 100vh; /* PC 端固定高度 */
+  height: 100dvh; /* PC 端固定高度 */
   display: flex;
   flex-direction: column;
   overflow: hidden; /* PC 端防止整體滾動 */
@@ -292,7 +292,6 @@
 .marquee-text {
   white-space: nowrap;
   font-size: clamp(1rem, 1.5vw, 1.5rem);
-  padding-left: 100%;
   will-change: transform;
   display: inline-block;
 }

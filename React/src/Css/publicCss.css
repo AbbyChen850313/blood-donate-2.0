@@ -30,7 +30,9 @@ body { /* 全局 body 樣式 */
   min-height: 100%;
   margin: 0;
   padding: 0;
-  overflow: hidden; /* 防止整個 body 滾動條出現 */
+    overflow: hidden; /* 防止整個 body 滾動條出現 */
+  overflow-y: auto; /* 允許垂直滾動，避免整個 body 被隱藏 */
+  overflow-x: hidden; /* 防止水平滾動條出現 */
 }
 .frame { /* 通用框架樣式 */
   position: relative;
