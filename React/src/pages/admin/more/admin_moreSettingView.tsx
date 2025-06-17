@@ -6,7 +6,8 @@ import {useMoreData} from '../../../components/backend/backend_reader';
 import MarqueeInput from './admin_marqueeUnit';
 
 const AdminMoreSettings = () => {
-  const { title, marquee ,info} = useMoreData();
+    const [refreshTrigger, setRefreshTrigger] = useState(0);
+  const { title, marquee ,info } = useMoreData(refreshTrigger);
   const [titleValue, setTitleValue] = useState(title);
   const [infoValue, setInfoValue] = useState(info);
   const [marqueeInputs, setMarqueeInputs] = useState(
@@ -16,8 +17,8 @@ const AdminMoreSettings = () => {
     setTitleValue(title);
     setInfoValue(info);
     setMarqueeInputs(marquee.map((text, index) => ({ id: index, text })));
-  }, [title, marquee]);
-  
+  }, [title, marquee, info]);
+
   const handleUpdateTitle = (e: React.ChangeEvent<HTMLInputElement>) => {
     setTitleValue(e.target.value);
   };
@@ -45,12 +46,19 @@ const AdminMoreSettings = () => {
     setMarqueeInputs([...marqueeInputs, { id: newId, text: "" }]);
   };
 
-  const handleSaveChanges = () => {
-    updateMoreData({
-      title: titleValue,
-      marquee: marqueeInputs.map((input) => input.text),
-      info:infoValue,
-    });
+  const handleSaveChanges = async () => {
+    try {
+      await updateMoreData({
+        title: titleValue,
+        marquee: marqueeInputs.map((input) => input.text),
+        info: infoValue,
+      });
+      alert("存取成功");
+      setRefreshTrigger((prev) => prev + 1);
+    } catch (error) {
+      console.error("Error saving more data:", error);
+      alert("保存失敗，請檢查網路或重試！");
+    }
   };
 
   return (

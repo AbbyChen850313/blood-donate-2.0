@@ -112,7 +112,7 @@
   width: 100%;
   padding: 0 20px;
   gap: 20px;
-  overflow: hidden;
+  overflow: auto;
   min-height: 0;
   min-width: 0;
 }
@@ -183,7 +183,7 @@
   border-radius: 20px;
   gap: 15px;
   min-height: 0;
-  overflow: hidden;
+  overflow: auto;
   box-shadow: 0 6px 20px rgba(0, 0, 0, 0.1);
   border: 2px solid rgba(21, 101, 192, 0.1);
 }
@@ -418,7 +418,7 @@
   width: 100%;
   /* 🎯 桌面版注意事項超大字體滿版 */
   font-size: clamp(1.2rem, 2.2vw, 2.8rem);
-  overflow: hidden;
+  overflow: auto;
   white-space: pre-line;
   border: 2px solid #ffcdd2;
   box-shadow: 0 4px 15px rgba(211, 47, 47, 0.1);
